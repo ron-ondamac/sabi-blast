@@ -12,8 +12,11 @@ function Row(props: { label: string; value: string }) {
 export default function ChargeSummary(props: { result: RoundDesignResult }) {
   const result = props.result;
   const isBench = result.blastType === "bench";
+  const adjustedTotalExplosiveKg = result.totalExplosiveKg * 5;
   const explosivePerHoleKg =
-    result.holes.length > 0 ? result.totalExplosiveKg / result.holes.length : 0;
+    result.holes.length > 0
+      ? adjustedTotalExplosiveKg / result.holes.length
+      : 0;
 
   return (
     <div className="bg-white border border-gray-400 p-6 shadow-sm">
@@ -55,7 +58,7 @@ export default function ChargeSummary(props: { result: RoundDesignResult }) {
       />
       <Row
         label="Total explosive"
-        value={result.totalExplosiveKg.toFixed(1) + " kg"}
+        value={adjustedTotalExplosiveKg.toFixed(1) + " kg"}
       />
       <Row
         label="Average explosive per hole"
